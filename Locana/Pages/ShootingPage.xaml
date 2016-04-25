@@ -7,6 +7,10 @@
       xmlns:local="using:Locana"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:util="using:Locana.Utility"
+      xmlns:atll="using:AdaptiveTriggerLibrary.Triggers.LogicalTriggers"
+      xmlns:atlh="using:AdaptiveTriggerLibrary.Triggers.HardwareInterfaceTriggers"
+      xmlns:atlui="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
+      xmlns:atllm="using:AdaptiveTriggerLibrary.ConditionModifiers.LogicalModifiers"
       Loaded="Page_Loaded"
       Unloaded="Page_Unloaded"
       mc:Ignorable="d">
@@ -38,7 +42,15 @@
             <VisualStateGroup x:Name="WindowWidthStates">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
+                        <atll:MultiTrigger>
+                            <atll:MultiTrigger.ConditionModifier>
+                                <atllm:AndModifier />
+                            </atll:MultiTrigger.ConditionModifier>
+                            <atll:MultiTrigger.Triggers>
+                                <atlui:WindowWidthTrigger Condition="720" />
+                                <atlh:DeviceFamilyTrigger Condition="Desktop" />
+                            </atll:MultiTrigger.Triggers>
+                        </atll:MultiTrigger>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="CenterArea.(Grid.ColumnSpan)" Value="1" />
