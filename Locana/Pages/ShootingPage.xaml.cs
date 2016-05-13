@@ -720,11 +720,35 @@ namespace Locana.Pages
             }
         }
 
+        private bool StartStopContShooting()
+        {
+            if (CameraStatusUtility.IsContinuousShootingMode(target))
+            {
+                if (target?.Status?.Status == EventParam.Idle)
+                {
+                    StartContShooting();
+                    return true;
+                }
+                else if (target?.Status?.Status == EventParam.StCapturing)
+                {
+                    StopContShooting();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private PeriodicalShootingTask PeriodicalShootingTask;
 
         private async void ShutterButtonPressed()
         {
             var handled = StartStopPeriodicalShooting();
+
+            if (!handled)
+            {
+                handled = StartStopContShooting();
+            }
 
             if (!handled)
             {
