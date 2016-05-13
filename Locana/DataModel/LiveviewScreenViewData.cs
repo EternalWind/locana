@@ -92,6 +92,7 @@ namespace Locana.DataModel
         private static readonly DataTemplate AudioIconTemplate = (DataTemplate)Application.Current.Resources["AudioIcon"];
         private static readonly DataTemplate IntervalStillIconTemplate = (DataTemplate)Application.Current.Resources["IntervalStillIcon"];
         private static readonly DataTemplate ContinuousStillIconTemplate = (DataTemplate)Application.Current.Resources["ContShootingIcon"];
+        private static readonly DataTemplate StopContinuousStillIconTemplate = (DataTemplate)Application.Current.Resources["StopContShootingIcon"];
         private static readonly DataTemplate LoopIconTemplate = (DataTemplate)Application.Current.Resources["LoopIcon"];
 
         private static readonly DataTemplate StopIconTemplate = (DataTemplate)Application.Current.Resources["StopIcon"];
@@ -148,6 +149,10 @@ namespace Locana.DataModel
                     {
                         case ContinuousShootMode.Cont:
                         case ContinuousShootMode.SpeedPriority:
+                            if (Device.Status?.Status == EventParam.Idle)
+                                return ContinuousStillIconTemplate;
+                            else
+                                return StopContinuousStillIconTemplate;
                         case ContinuousShootMode.Burst:
                         case ContinuousShootMode.MotionShot:
                             return ContinuousStillIconTemplate;

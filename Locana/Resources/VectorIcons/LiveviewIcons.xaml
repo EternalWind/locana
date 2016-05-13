@@ -81,6 +81,21 @@
         </Viewbox>
     </DataTemplate>
 
+    <DataTemplate x:Key="StopContShootingIcon">
+        <Viewbox>
+            <Canvas Width="24" Height="24">
+                <Canvas.RenderTransform>
+                    <TranslateTransform X="0" Y="0" />
+                </Canvas.RenderTransform>
+                <Canvas.Resources />
+                <!--  Todo.  -->
+                <Path Data="F1 M24,24z M0,0z M9,2L7.17,4 4,4C2.9,4,2,4.9,2,6L2,18C2,19.1,2.9,20,4,20L20,20C21.1,20,22,19.1,22,18L22,6C22,4.9,21.1,4,20,4L16.83,4 15,2 9,2z M12,17C9.24,17 7,14.76 7,12 7,9.24 9.24,7 12,7 14.76,7 17,9.24 17,12 17,14.76 14.76,17 12,17z"
+                      Fill="Red"
+                      Stroke="#FF000000" />
+            </Canvas>
+        </Viewbox>
+    </DataTemplate>
+    
     <DataTemplate x:Key="LoopIcon">
         <Viewbox>
             <Canvas Width="24" Height="24">
