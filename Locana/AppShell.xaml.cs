@@ -29,6 +29,10 @@ namespace Locana
                 {
                     IconResId = "ic_linked_camera_white",
                     Label = SystemUtil.GetStringResource("AppShell_RemoteShooting"),
+                    Arguments = new EntrancePage.EntrancePageArguments
+                    {
+                        isExplicitRequested = true
+                    },
                     DestPage = typeof(EntrancePage)
                 },
                 new NavMenuItem()

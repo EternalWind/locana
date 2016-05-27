@@ -25,6 +25,13 @@ namespace Locana.Pages
     /// </summary>
     public sealed partial class EntrancePage : Page
     {
+        public struct EntrancePageArguments
+        {
+            public bool isExplicitRequested;
+        }
+
+        private EntrancePageArguments arguments;
+
         public EntrancePage()
         {
             this.InitializeComponent();
@@ -64,6 +71,18 @@ namespace Locana.Pages
                 var data = e.Parameter as SonyQrData;
                 await OnConnectionInfoFound(data.SSID, data.Password);
             }
+
+            if (e.Parameter != null && e.Parameter is EntrancePageArguments)
+            {
+                arguments = (EntrancePageArguments)e.Parameter;
+            }
+            else
+            {
+                arguments = new EntrancePageArguments
+                {
+                    isExplicitRequested = false
+                };
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -101,8 +120,15 @@ namespace Locana.Pages
         {
             var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                devicesGroup.Add(new DevicePanel(e.CameraDevice));
+                var device = new DevicePanel(e.CameraDevice);
+
+                devicesGroup.Add(device);
                 WifiHint.Visibility = Visibility.Collapsed;
+
+                if (!arguments.isExplicitRequested && ApplicationSettings.GetInstance().QuickConnectionEnabled)
+                {
+                    device.OnClick();
+                }
             });
         }
 

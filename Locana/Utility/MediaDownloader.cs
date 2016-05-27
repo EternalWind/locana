@@ -13,7 +13,17 @@ namespace Locana.Utility
     {
         private MediaDownloader() { }
 
-        private static string DIRECTORY_NAME = SystemUtil.GetStringResource("ApplicationTitle");
+        private static string POST_VIEW_NAME_BASE = SystemUtil.GetStringResource("ApplicationTitle");
+
+        private static string DIRECTORY_NAME = SystemUtil.GetStringResource("MediaFolder");
+        private static string ONEDRIVE_DIRECTORY_NAME = SystemUtil.GetStringResource("OneDriveMediaFolder");
+        public static string MediaFolder
+        {
+            get
+            {
+                return ApplicationSettings.GetInstance().SaveToOneDriveEnabled ? ONEDRIVE_DIRECTORY_NAME : DIRECTORY_NAME;
+            }
+        }
 
         private const int BUFFER_SIZE = 8 * 1024;
 
@@ -53,7 +63,7 @@ namespace Locana.Utility
 
         public void EnqueuePostViewImage(Uri uri)
         {
-            Enqueue(uri, DIRECTORY_NAME, Mediatype.Image, ".jpg");
+            Enqueue(uri, POST_VIEW_NAME_BASE, Mediatype.Image, ".jpg");
         }
 
         private async void Enqueue(Uri uri, string namebase, Mediatype type, string extension = null)
@@ -169,7 +179,7 @@ namespace Locana.Utility
                             return;
                     }
 
-                    var folder = await rootFolder.CreateFolderAsync(DIRECTORY_NAME, CreationCollisionOption.OpenIfExists);
+                    var folder = await rootFolder.CreateFolderRecursiveAsync(MediaFolder, CreationCollisionOption.OpenIfExists);
                     var filename = string.Format(req.NameBase + "_{0:yyyyMMdd_HHmmss}" + req.extension, DateTime.Now);
                     var file = await folder.CreateFileAsync(filename, CreationCollisionOption.GenerateUniqueName);
 

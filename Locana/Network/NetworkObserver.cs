@@ -1,6 +1,7 @@
 ﻿using Kazyx.DeviceDiscovery;
 using Locana.CameraControl;
 using Locana.UPnP;
+using Locana.DataModel;
 using Locana.Utility;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Networking.Connectivity;
+using Windows.Networking;
 
 namespace Locana.Network
 {
@@ -188,6 +190,12 @@ namespace Locana.Network
             discovery.SearchSonyCameraDevices();
         }
 
+        private void EstablishQuickConnectionToCamera()
+        {
+            discovery.GetDeviceDescriptionAsync(ApplicationSettings.GetInstance().QuickConnectionUri,
+                new HostName("localhost"));
+        }
+
         private void Clear()
         {
             RefreshDevices();
@@ -233,6 +241,9 @@ namespace Locana.Network
 
             while (!cancel.IsCancellationRequested)
             {
+                if (ApplicationSettings.GetInstance().QuickConnectionEnabled)
+                    EstablishQuickConnectionToCamera();
+
                 SearchCamera();
                 SearchCds();
                 await Task.Delay(5000).ConfigureAwait(false);

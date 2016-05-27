@@ -1122,4 +1122,25 @@ Make sure location setting and try again.</value>
   <data name="Support" xml:space="preserve">
     <value>Support</value>
   </data>
+  <data name="Guide_EnableSaveToOneDrive" xml:space="preserve">
+    <value>猛戳该选项自动上传照片到OneDrive！</value>
+  </data>
+  <data name="MediaFolder" xml:space="preserve">
+    <value>Locana</value>
+  </data>
+  <data name="OneDriveMediaFolder" xml:space="preserve">
+    <value>Camera Roll/Locana</value>
+  </data>
+  <data name="Setting_EnableSaveToOneDrive" xml:space="preserve">
+    <value>自动同步到OneDrive</value>
+  </data>
+  <data name="Guide_QuickConnection" xml:space="preserve">
+    <value>App启动时自动连接到相机</value>
+  </data>
+  <data name="QuickConnectionSetting" xml:space="preserve">
+    <value>快速连接</value>
+  </data>
+  <data name="QuickConnectionUri" xml:space="preserve">
+    <value>http://192.168.122.1:64321/dd.xml</value>
+  </data>
 </root>

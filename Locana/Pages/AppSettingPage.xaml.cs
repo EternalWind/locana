@@ -9,6 +9,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
+using Windows.Storage;
+using System.IO;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -82,6 +84,11 @@ namespace Locana.Pages
                 geoSetting.IsActive = false;
             }
             section.Add(geoToggle);
+
+            section.Add(new ToggleSetting(
+                new AppSettingData<bool>(SystemUtil.GetStringResource("QuickConnectionSetting"), SystemUtil.GetStringResource("Guide_QuickConnection"),
+                () => { return ApplicationSettings.GetInstance().QuickConnectionEnabled; },
+                enabled => { ApplicationSettings.GetInstance().QuickConnectionEnabled = enabled; })));
 
             return section;
         }
@@ -240,6 +247,11 @@ namespace Locana.Pages
                         }
                     },
                     SettingValueConverter.FromContentsSet(EnumUtil<ContentsSet>.GetValueEnumerable()))));
+
+            section.Add(new ToggleSetting(
+                new AppSettingData<bool>(SystemUtil.GetStringResource("Setting_EnableSaveToOneDrive"), SystemUtil.GetStringResource("Guide_EnableSaveToOneDrive"),
+                () => { return ApplicationSettings.GetInstance().SaveToOneDriveEnabled; },
+                enabled => { ApplicationSettings.GetInstance().SaveToOneDriveEnabled = enabled; })));
 
             return section;
         }

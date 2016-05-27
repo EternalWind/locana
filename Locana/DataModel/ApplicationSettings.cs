@@ -26,6 +26,8 @@ namespace Locana.DataModel
             PrioritizeOriginalSizeContents = Preference.OriginalSizeContentsPrioritized;
             RemoteContentsSet = Preference.RemoteContentsSet;
             LiveviewRotationEnabled = Preference.LiveviewRotationEnabled;
+            SaveToOneDriveEnabled = Preference.SaveToOneDriveEnabled;
+            QuickConnectionEnabled = Preference.QuickConnectionEnabled;
         }
 
         public static ApplicationSettings GetInstance()
@@ -315,6 +317,50 @@ namespace Locana.DataModel
                     _LiveviewRotationEnabled = value;
                     NotifyChangedOnUI(nameof(LiveviewRotationEnabled));
                 }
+            }
+        }
+
+        private bool _SaveToOneDriveEnabled = false;
+        public bool SaveToOneDriveEnabled
+        {
+            get
+            {
+                return _SaveToOneDriveEnabled;
+            }
+            set
+            {
+                if (value != _SaveToOneDriveEnabled)
+                {
+                    Preference.SaveToOneDriveEnabled = value;
+                    _SaveToOneDriveEnabled = value;
+                    NotifyChangedOnUI(nameof(SaveToOneDriveEnabled));
+                }
+            }
+        }
+
+        private bool _QuickConnectionEnabled = false;
+        public bool QuickConnectionEnabled
+        {
+            get
+            {
+                return _QuickConnectionEnabled;
+            }
+            set
+            {
+                if (value != _QuickConnectionEnabled)
+                {
+                    Preference.QuickConnectionEnabled = value;
+                    _QuickConnectionEnabled = value;
+                    NotifyChangedOnUI(nameof(QuickConnectionEnabled));
+                }
+            }
+        }
+
+        public string QuickConnectionUri
+        {
+            get
+            {
+                return SystemUtil.GetStringResource("QuickConnectionUri");
             }
         }
     }

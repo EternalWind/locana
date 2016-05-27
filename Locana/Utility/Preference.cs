@@ -22,6 +22,8 @@ namespace Locana.Utility
         private const string prioritize_original_contents = "prioritize_original_contents";
         private const string remote_contents_set = "remote_contents_set";
         private const string rotate_liveview = "lotate_liveview";
+        private const string save_to_onedrive = "save_to_onedrive";
+        private const string quick_connection = "quick_connection";
 
         private const string init_launched_datetime = "init_datetime";
         private const string last_version = "last_version";
@@ -162,6 +164,18 @@ namespace Locana.Utility
         {
             get { return GetProperty(rotate_liveview, true); }
             set { SetProperty(rotate_liveview, value); }
+        }
+
+        public static bool SaveToOneDriveEnabled
+        {
+            get { return GetProperty(save_to_onedrive, false); }
+            set { SetProperty(save_to_onedrive, value); }
+        }
+
+        public static bool QuickConnectionEnabled
+        {
+            get { return GetProperty(quick_connection, false); }
+            set { SetProperty(quick_connection, value); }
         }
     }
 }
