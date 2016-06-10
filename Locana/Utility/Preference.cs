@@ -24,6 +24,7 @@ namespace Locana.Utility
         private const string rotate_liveview = "lotate_liveview";
         private const string save_to_onedrive = "save_to_onedrive";
         private const string quick_connection = "quick_connection";
+        private const string immediate_postview = "immediate_postview";
 
         private const string init_launched_datetime = "init_datetime";
         private const string last_version = "last_version";
@@ -176,6 +177,12 @@ namespace Locana.Utility
         {
             get { return GetProperty(quick_connection, false); }
             set { SetProperty(quick_connection, value); }
+        }
+
+        public static bool ImmediatePostViewEnabled
+        {
+            get { return GetProperty(immediate_postview, false); }
+            set { SetProperty(immediate_postview, value); }
         }
     }
 }

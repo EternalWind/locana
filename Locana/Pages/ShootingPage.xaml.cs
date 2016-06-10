@@ -30,6 +30,10 @@ namespace Locana.Pages
 {
     public sealed partial class ShootingPage : Page
     {
+        public double Test { get; set; }
+
+        public PostviewCollection PostviewViewerViewModel { get; set; } = new PostviewCollection();
+
         public ShootingPage()
         {
             InitializeComponent();
@@ -233,7 +237,7 @@ namespace Locana.Pages
             var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 var bmp = new BitmapImage();
-                using (var stream = await file.GetThumbnailAsync(ThumbnailMode.SingleItem))
+                using (var stream = await file.OpenReadAsync())
                 {
                     bmp.CreateOptions = BitmapCreateOptions.None;
                     await bmp.SetSourceAsync(stream);
@@ -257,6 +261,13 @@ namespace Locana.Pages
                     case GeotaggingResult.Result.FailedToAcquireLocation:
                         text = SystemUtil.GetStringResource("ErrorMessage_FailedToGetGeoposition");
                         break;
+                }
+
+                PostviewViewerViewModel.Postviews.Add(bmp);
+
+                if (ApplicationSettings.GetInstance().ImmediatePostViewEnabled)
+                {
+                    ImagePostview.Visibility = Visibility.Visible;
                 }
 
                 AppShell.Current.Toast.PushToast(new ToastContent
@@ -743,6 +754,8 @@ namespace Locana.Pages
 
         private async void ShutterButtonPressed()
         {
+            PostviewViewerViewModel.Postviews.Clear();
+
             var handled = StartStopPeriodicalShooting();
 
             if (!handled)
@@ -953,6 +966,24 @@ namespace Locana.Pages
         private void ControlPanelArrow_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ToggleControlPanel();
+        }
+
+        private void ImagePreview_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            PostviewViewerViewModel.ViewerWidth = e.NewSize.Width;
+            PostviewViewerViewModel.ViewerHeight = e.NewSize.Height;
+        }
+
+        private void FlipView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            ImagePostview.Visibility = Visibility.Collapsed;
+        }
+
+        private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            var scrollViewer = sender as ScrollViewer;
+            scrollViewer.ManipulationMode = (scrollViewer.ZoomFactor == scrollViewer.MinZoomFactor && !e.IsIntermediate) ? 
+                ManipulationModes.System : ManipulationModes.None;
         }
     }
 }

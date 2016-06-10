@@ -56,6 +56,11 @@ namespace Locana.Pages
                 () => { return ApplicationSettings.GetInstance().IsPostviewTransferEnabled; },
                 enabled => { ApplicationSettings.GetInstance().IsPostviewTransferEnabled = enabled; })));
 
+            section.Add(new ToggleSetting(
+                new AppSettingData<bool>(SystemUtil.GetStringResource("ImmediatePostviewSetting"), SystemUtil.GetStringResource("Guide_ImmediatePostviewSetting"),
+                () => { return ApplicationSettings.GetInstance().ImmediatePostViewEnabled; },
+                enabled => { ApplicationSettings.GetInstance().ImmediatePostViewEnabled = enabled; })));
+
             var limited = (Application.Current as App).IsFunctionLimited;
 
             var geoGuide = limited ? "TrialMessage" : "AddGeotag_guide";

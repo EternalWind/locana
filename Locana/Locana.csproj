@@ -101,7 +101,9 @@
     </Content>
     <None Include="project.json" />
     <PRIResource Include="Strings\ja-JP\Resources.resw" />
-    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -180,6 +182,7 @@
     <Compile Include="DataModel\ApiCapabilityContainer.cs" />
     <Compile Include="DataModel\ApplicationSettings.cs" />
     <Compile Include="DataModel\AppSettingData.cs" />
+    <Compile Include="DataModel\BindableBase.cs" />
     <Compile Include="DataModel\CameraStatus.cs" />
     <Compile Include="DataModel\ContentInfo.cs" />
     <Compile Include="DataModel\ControlPanelDataSource.cs" />
@@ -192,6 +195,7 @@
     <Compile Include="DataModel\PlaybackAlbum.cs" />
     <Compile Include="DataModel\PlaybackAlbumCollection.cs" />
     <Compile Include="DataModel\PlaybackThumbnail.cs" />
+    <Compile Include="DataModel\PostviewCollection.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="NavMenuItem.cs" />
     <Compile Include="Network\WifiDirectUtil.cs" />
@@ -216,6 +220,9 @@
     </Compile>
     <Compile Include="Pages\QrCodePage.xaml.cs">
       <DependentUpon>QrCodePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ShootingPage2.xaml.cs">
+      <DependentUpon>ShootingPage2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\WifiDirectPage.xaml.cs">
       <DependentUpon>WifiDirectPage.xaml</DependentUpon>
@@ -261,6 +268,7 @@
     <Compile Include="Utility\EnumUtil.cs" />
     <Compile Include="Utility\GeoPositionUtil.cs" />
     <Compile Include="Utility\LiveviewUtil.cs" />
+    <Compile Include="Utility\MathExtensions.cs" />
     <Compile Include="Utility\MediaDownloader.cs" />
     <Compile Include="Utility\MetaDataValueConverter.cs" />
     <Compile Include="Network\NetworkObserver.cs" />
@@ -283,6 +291,7 @@
     <None Include="Locana_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\DummyLiveView.jpg" />
     <Content Include="Assets\Contributors.txt" />
     <Content Include="Assets\License.txt" />
     <Content Include="Assets\Logo\Square_150x150.scale-100.png" />
@@ -310,6 +319,7 @@
     <Content Include="Assets\Logo\Wide_310x150.scale-200.png" />
     <Content Include="Assets\Logo\Wide_310x150.scale-400.png" />
     <Content Include="Assets\SplashScreen\SplashScreen.scale-200.png" />
+    <Content Include="Assets\DummyGalleryPreview.jpg" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -425,9 +435,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ShootingPage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\WifiDirectPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\MyControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\VectorIcons\ContentsIcons.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -460,6 +479,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\radial-menu\RadialMenuControl\RadialMenuControl.csproj">
+      <Project>{a10ee2d6-d98a-4074-8b29-19a7702f9493}</Project>
+      <Name>RadialMenuControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\modules\kz-image-stream\Project\KzImageStreamUwp.csproj">
       <Project>{068aafa5-f654-4049-8903-bbe95c81586b}</Project>
       <Name>KzImageStreamUwp</Name>
@@ -485,7 +508,6 @@
       <Name>NtNfcParserUwp</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <SDKReference Include="WindowsDesktop, Version=10.0.10586.0">
       <Name>Windows Desktop Extensions for the UWP</Name>

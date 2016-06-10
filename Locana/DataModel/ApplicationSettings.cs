@@ -28,6 +28,7 @@ namespace Locana.DataModel
             LiveviewRotationEnabled = Preference.LiveviewRotationEnabled;
             SaveToOneDriveEnabled = Preference.SaveToOneDriveEnabled;
             QuickConnectionEnabled = Preference.QuickConnectionEnabled;
+            ImmediatePostViewEnabled = Preference.ImmediatePostViewEnabled;
         }
 
         public static ApplicationSettings GetInstance()
@@ -361,6 +362,24 @@ namespace Locana.DataModel
             get
             {
                 return SystemUtil.GetStringResource("QuickConnectionUri");
+            }
+        }
+
+        private bool _ImmediatePostviewEnabled = false;
+        public bool ImmediatePostViewEnabled
+        {
+            get
+            {
+                return _ImmediatePostviewEnabled;
+            }
+            set
+            {
+                if (value != _ImmediatePostviewEnabled)
+                {
+                    Preference.ImmediatePostViewEnabled = value;
+                    _ImmediatePostviewEnabled = value;
+                    NotifyChangedOnUI(nameof(ImmediatePostViewEnabled));
+                }
             }
         }
     }

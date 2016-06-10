@@ -1143,4 +1143,10 @@ Make sure location setting and try again.</value>
   <data name="QuickConnectionUri" xml:space="preserve">
     <value>http://192.168.122.1:64321/dd.xml</value>
   </data>
+  <data name="Guide_ImmediatePostviewSetting" xml:space="preserve">
+    <value>在拍摄后自动显示照片预览</value>
+  </data>
+  <data name="ImmediatePostviewSetting" xml:space="preserve">
+    <value>照片预览</value>
+  </data>
 </root>
